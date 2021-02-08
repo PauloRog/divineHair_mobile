@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {Image} from 'react-native';
 import logo from '../../assets/logo.png';
@@ -11,7 +12,7 @@ import {
   SignLinkText,
 } from './styles';
 
-const SignIn = () => (
+const SignIn = ({navigation}) => (
   <Background>
     <Container>
       <Image source={logo} />
@@ -30,8 +31,8 @@ const SignIn = () => (
         />
         <SubmitButton onPress={() => {}}>Login</SubmitButton>
       </Form>
-      <SignLink>
-        <SignLinkText>Create an account</SignLinkText>
+      <SignLink onPress={() => navigation.navigate('SignUp')}>
+        <SignLinkText>Create your free account</SignLinkText>
       </SignLink>
     </Container>
   </Background>
