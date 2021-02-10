@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {Image} from 'react-native';
+import {useDispatch} from 'react-redux';
 import logo from '../../assets/logo.png';
 import Background from '../../components/Bakground';
+import {signInRequest} from '../../store/modules/auth/actions';
 import {
   Container,
   Form,
@@ -12,30 +14,50 @@ import {
   SignLinkText,
 } from './styles';
 
-const SignIn = ({navigation}) => (
-  <Background>
-    <Container>
-      <Image source={logo} />
-      <Form>
-        <FormInput
-          icon="mail-outline"
-          keyboardType="email-address"
-          autoCorrect={false}
-          autoCapitalize="none"
-          placeholder="Your email"
-        />
-        <FormInput
-          icon="lock-outline"
-          secureTextEntry
-          placeholder="Your password"
-        />
-        <SubmitButton onPress={() => {}}>Login</SubmitButton>
-      </Form>
-      <SignLink onPress={() => navigation.navigate('SignUp')}>
-        <SignLinkText>Create your free account</SignLinkText>
-      </SignLink>
-    </Container>
-  </Background>
-);
+function SignIn({navigation}) {
+  const dispatch = useDispatch();
+  const passwordRef = useRef();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit() {
+    dispatch(signInRequest(email, password));
+  }
+
+  return (
+    <Background>
+      <Container>
+        <Image source={logo} />
+        <Form>
+          <FormInput
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Your email"
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Your password"
+            ref={passwordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <SubmitButton onPress={handleSubmit}>Login</SubmitButton>
+        </Form>
+        <SignLink onPress={() => navigation.navigate('SignUp')}>
+          <SignLinkText>Create your free account</SignLinkText>
+        </SignLink>
+      </Container>
+    </Background>
+  );
+}
 
 export default SignIn;
