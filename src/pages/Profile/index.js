@@ -1,12 +1,120 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, {useRef, useState, useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '../../components/Bakground';
-// import { Container } from './styles';
+import {signOut} from '../../store/modules/auth/actions';
+import {updateProfileRequest} from '../../store/modules/user/actions';
+import {
+  Container,
+  Title,
+  Form,
+  FormInput,
+  Separator,
+  SubmitButton,
+  LogoutButton,
+} from './styles';
 
-const Profile = () => <Background />;
+export default function Profile() {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.profile);
+  const emailRef = useRef();
+  const oldPasswordRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const [name, setName] = useState(profile.name);
+  const [email, setEmail] = useState(profile.email);
+  const [oldPassword, setOldPassword] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-export default Profile;
+  useEffect(() => {
+    setOldPassword('');
+    setPassword('');
+    setConfirmPassword('');
+  }, [profile]);
+
+  function handleSubmit() {
+    dispatch(
+      updateProfileRequest({
+        name,
+        email,
+        oldPassword,
+        password,
+        confirmPassword,
+      }),
+    );
+  }
+
+  function handleLogout() {
+    dispatch(signOut());
+  }
+
+  return (
+    <Background>
+      <Container>
+        <Title>My Profile</Title>
+        <Form>
+          <FormInput
+            icon="person-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Your name"
+            onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
+          />
+          <FormInput
+            icon="mail-outline"
+            keyboardType="email-address"
+            autoCorrect={false}
+            autoCapitalize="none"
+            placeholder="Your email"
+            ref={emailRef}
+            returnKeyType="next"
+            onSubmitEditing={() => oldPasswordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
+          />
+          <Separator />
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Your current password"
+            ref={oldPasswordRef}
+            returnKeyType="next"
+            onSubmitEditing={() => passwordRef.current.focus()}
+            value={oldPassword}
+            onChangeText={setOldPassword}
+          />
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Your new password"
+            ref={passwordRef}
+            returnKeyType="next"
+            onSubmitEditing={() => confirmPasswordRef.current.focus()}
+            value={password}
+            onChangeText={setPassword}
+          />
+          <FormInput
+            icon="lock-outline"
+            secureTextEntry
+            placeholder="Password Confirmation"
+            ref={confirmPasswordRef}
+            returnKeyType="send"
+            onSubmitEditing={handleSubmit}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+          />
+          <SubmitButton onPress={handleSubmit}>Update profile</SubmitButton>
+          <LogoutButton onPress={handleLogout}>Logout</LogoutButton>
+        </Form>
+      </Container>
+    </Background>
+  );
+}
 
 Profile.navigationOptions = {
   tabBarLabel: 'My Profile',

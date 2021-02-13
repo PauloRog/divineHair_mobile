@@ -21,7 +21,7 @@ function Appointment({data, onCancel}) {
           source={{
             uri: data.provider.avatar
               ? data.provider.avatar.url
-              : `https://avatars.dicebear.com/api/bottts/${data.provider.name}.svg`,
+              : `https://avatars.dicebear.com/4.5/api/bottts/${data.provider.name}.svg`,
           }}
         />
 
