@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, {useEffect, useState} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../../services/api';
 import Background from '../../../components/Bakground';
-import {Container, ProvidersList, Avatar, Name, Provider} from './styles';
+import { Container, ProvidersList, Avatar, Name, Provider } from './styles';
 
-export default function SelectProvider({navigation}) {
+export default function SelectProvider({ navigation }) {
   const [providers, setProvider] = useState([]);
   useEffect(() => {
     async function loadProviders() {
@@ -24,9 +24,11 @@ export default function SelectProvider({navigation}) {
         <ProvidersList
           data={providers}
           keyExtractor={(provider) => String(provider.id)}
-          renderItem={({item: provider}) => (
+          renderItem={({ item: provider }) => (
             <Provider
-              onPress={() => navigation.navigate('SelectDateTime', {provider})}>
+              onPress={() =>
+                navigation.navigate('SelectDateTime', { provider })
+              }>
               <Avatar
                 source={{
                   uri: provider.avatar
@@ -43,7 +45,7 @@ export default function SelectProvider({navigation}) {
   );
 }
 
-SelectProvider.navigationOptions = ({navigation}) => ({
+SelectProvider.navigationOptions = ({ navigation }) => ({
   title: 'Select the provider',
   headerLeft: () => (
     <TouchableOpacity

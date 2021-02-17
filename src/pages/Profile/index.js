@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, {useRef, useState, useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '../../components/Bakground';
-import {signOut} from '../../store/modules/auth/actions';
-import {updateProfileRequest} from '../../store/modules/user/actions';
+import { signOut } from '../../store/modules/auth/actions';
+import { updateProfileRequest } from '../../store/modules/user/actions';
 import {
   Container,
   Title,
@@ -118,7 +118,7 @@ export default function Profile() {
 
 Profile.navigationOptions = {
   tabBarLabel: 'My Profile',
-  tabBarIcon: ({tintColor}) => (
+  tabBarIcon: ({ tintColor }) => (
     <Icon name="person" size={20} color={tintColor} />
   ),
 };

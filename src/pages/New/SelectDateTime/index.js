@@ -1,15 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import React, {useState, useEffect} from 'react';
-import {TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../../services/api';
 import DateInput from '../../../components/DateInput';
 import Background from '../../../components/Bakground';
-import {Container, HourList, Hour, Title} from './styles';
+import { Container, HourList, Hour, Title } from './styles';
 
-function SelectDateTime({navigation}) {
+function SelectDateTime({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [hours, setHours] = useState([]);
   const provider = navigation.getParam('provider');
@@ -42,12 +42,12 @@ function SelectDateTime({navigation}) {
         <HourList
           data={hours}
           keyExtractor={(item) => item.time}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Hour
               onPress={() => {
                 handleSelectHours(item.value);
               }}
-              enable={item.available}>
+              enabled={item.available}>
               <Title>{item.time}</Title>
             </Hour>
           )}
@@ -59,7 +59,7 @@ function SelectDateTime({navigation}) {
 
 export default SelectDateTime;
 
-SelectDateTime.navigationOptions = ({navigation}) => ({
+SelectDateTime.navigationOptions = ({ navigation }) => ({
   title: 'Select time',
   headerLeft: () => (
     <TouchableOpacity

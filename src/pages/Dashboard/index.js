@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../services/api';
 import Background from '../../components/Bakground';
 import Appointment from '../../components/Appointment';
-import {Container, Title, List} from './styles';
+import { Container, Title, List } from './styles';
 
 function Dashboard() {
   const [appointments, setAppointments] = useState([]);
@@ -23,7 +23,7 @@ function Dashboard() {
     setAppointments(
       appointments.map((appointment) =>
         appointment.id === id
-          ? {...appointment, canceled_at: response.data.canceled_at}
+          ? { ...appointment, canceled_at: response.data.canceled_at }
           : appointment,
       ),
     );
@@ -36,7 +36,7 @@ function Dashboard() {
         <List
           data={appointments}
           keyExtractor={(item) => String(item.id)}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Appointment onCancel={() => handleCancel(item.id)} data={item} />
           )}
         />
@@ -49,7 +49,7 @@ export default Dashboard;
 
 Dashboard.navigationOptions = {
   tabBarLabel: 'Schedules',
-  tabBarIcon: ({tintColor}) => (
+  tabBarIcon: ({ tintColor }) => (
     <Icon name="event" size={20} color={tintColor} />
   ),
 };

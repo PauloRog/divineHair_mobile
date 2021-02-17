@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, {useState, useMemo} from 'react';
-import {format} from 'date-fns';
+import React, { useState, useMemo } from 'react';
+import { format } from 'date-fns';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {Container, DateButton, DateText, Picker} from './styles';
+import { Container, DateButton, DateText, Picker } from './styles';
 
-function DateInput({date, onChange}) {
+function DateInput({ date, onChange }) {
   const [opened, setOpened] = useState(false);
   const dateFormatted = useMemo(() => format(date, 'MMMM dd, yyyy'), [date]);
 
@@ -22,7 +22,7 @@ function DateInput({date, onChange}) {
             onDateChange={onChange}
             minimumDate={new Date()}
             mode="date"
-            minuteInterval={60}
+            minuteInterval={30}
             androidVariant="iosClone"
           />
         </Picker>
